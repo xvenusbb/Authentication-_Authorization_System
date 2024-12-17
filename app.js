@@ -1,9 +1,9 @@
 /*imports */
 require ('dotenv').config()
-const express = reqire('express')
+const express = require('express')
 const mongoose = require ('mongoose')
 const bcrypt = require ('bcrypt')
-const jwt = requite ('jsonwebtoken')
+const jwt = require ('jsonwebtoken')
 
 const app = express()
 
@@ -43,7 +43,7 @@ app.post('/auth/register', async(req,res) => {
         return res.status(422).json({msg: 'Preenchimento Obrigatório.'})
 }
     if(!password){
-        return res.status(422).json({msg: 'Senha incorreta.'})
+        return res.status(422).json({msg: 'Poucos caracteres apresentados.'})
     }
     if(!email){
         return res.status(422).json({msg: 'Email incorreto.'})
@@ -55,7 +55,7 @@ app.post('/auth/register', async(req,res) => {
     //Checar existência do Usuário
     const userExiste = await User.findOne({email: email})
 
-    if (userExiste){
+    if (!userExiste){
         return res.status(422).json({msg:'Usuário inexistente.'})
     }
 
